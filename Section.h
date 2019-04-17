@@ -4,14 +4,11 @@
 #include "Lane"
 
 
-class Section : public Lane {
+class Section {
 	
 	private: 
 		bool isOccupied(){}
 		bool atIntersection(){}
-		Section* front;
-		Section* back;
-		Section* right;
 
 
 	public:
@@ -28,9 +25,7 @@ class Section : public Lane {
 		void enter(){
 			isOccupied = true;
 		}
-		bool atIntersection(){
 
-		}
 
 				
 };

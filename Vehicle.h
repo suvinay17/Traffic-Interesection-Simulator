@@ -1,3 +1,4 @@
+//Allie
 #ifndef __VEHICLE__
 #define __VEHICLE__
 
@@ -11,17 +12,21 @@ class Vehicle : public VehicleBase {
 	private: 
 		int size;
 		bool probRight;
-		bool probLeft;
-		Vehicle* vehicle;
+		Lane* lane;
+		Section* section;
+		VehicleBase::VehicleType type;
+
 
 
 	public:
-		void goRight();
-		void goLeft();
-		void goStraight();	
-
-		Vehicle();
+		Vehicle(VehicleBase::VehicleType type, size, Section* startSection, bool probRight);
+		Vehicle(const Vehicle& other);
 		~Vehicle() {}	
+
+		void goRight();
+		void goStraight();
+
+		
 };
 
 #endif
