@@ -19,7 +19,7 @@ if(getStatus() == green)
 	if(greenTime == 0)
 		setStatus(yellow);
 }
-else if(getStatus == yellow)
+else if(getStatus() == yellow)
 {   yellowTime--
 	if(yellowTime == 0)
    		setStatus(red);

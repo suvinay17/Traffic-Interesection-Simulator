@@ -6,21 +6,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
-
 #include <VehicleBase.h>
 #include <Road.h>
 #include <Section.h>
 
-Road::Road(direction dir, int sections, std::vector<section> sections, std::vector<vehicle> vehicles)
+Road::Road()
 {
-   dir=;// declare direction enum
-   numsections=sections;
-   for(int i = 0; i < numsections; i++) {
-   sections.push_back(Section section);
- }	
-//learn what to do for vehicles
-   
-
 }
 
 
@@ -29,31 +20,36 @@ Road::~Road()
 }
 
 
-void Road:advance()
+direction Road::getDirection()
 {
+  return direction;
+}
 
-  if(TrafficLight::getStatus()==green)
+
+void Road::advance()
+{ 
+  Section* c;
+
+  if(TrafficLight::getStatus() == green || TrafficLight::getStatus() == yellow)
     {
-       
-         for(int k=0; k < numSection-1; k++)
+       for(int i = 0; i < vehicles.size(); i++)
          {
-             
-        
-	    if(!Section::getOcuppied())
-	    {
-                sections.at(k+1)=sections.at(k);// addVehicle will take care of 0th section
-	
-               }  
-	}   
-        
-}	
-}
-TrafficLight::updateLight();
- else if(getStatus()==yellow)
-    {
-}
-TrafficLight::updateLight();
- else{
-}
-TrafficLight::updateLight();
-}
+	   c = vehicles.at(i).getVehicle();
+	   if(!(*c)+1.Section::getOccupied()  && Section::)
+	     { 
+	       Section::vehicle.at(i).setVehicle((*c)+1);
+	     }	
+       TrafficLight::updateLight();
+         }
+    }
+
+  else
+     {
+        if(!Section::getOccupied())
+	{
+	  //logic to move ahead
+	}
+	TrafficLight::updateLight();
+        }
+     }
+};
