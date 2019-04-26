@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, LightColor status): greenTime(greenTime),
     redTime(redTime), yellowTime(yellowTime), status(status){
         if (status == LightColor::green)
@@ -21,6 +22,7 @@ LightColor TrafficLight::getStatus(){
 }
 void TrafficLight::setStatus(LightColor variable){
     this->status = variable;
+
 }
 void TrafficLight::updateLight(){ 
     if(getStatus() == LightColor::green){

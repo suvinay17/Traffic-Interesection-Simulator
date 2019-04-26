@@ -14,6 +14,7 @@ class TrafficLight
 		int greenTime;
 		int redTime;
 		int yellowTime;
+
 		LightColor status;
         int currentTime;
         // public methods	
@@ -23,5 +24,6 @@ class TrafficLight
 		void setStatus(LightColor variable);
 		LightColor getStatus();
         void updateLight(); 
+
 };
 #endif
