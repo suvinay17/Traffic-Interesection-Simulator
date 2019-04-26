@@ -4,20 +4,24 @@
 #define __TrafficLight_H__
 using namespace std;
 
+enum class LightColor {green, yellow, red};
+
 class TrafficLight
 {
 	//private member variables
 	private:
-	
 
 		int greenTime;
 		int redTime;
 		int yellowTime;
-		enum status{open, occupied}
+		LightColor status;
+        int currentTime;
         // public methods	
 	public:
-		void updateLight();
-		enum getStatus();
-
+        TrafficLight(int greenTime, int redTime, int yellowTime, LightColor status);
+        ~TrafficLight(); 
+		void setStatus(LightColor variable);
+		LightColor getStatus();
+        void updateLight(); 
 };
 #endif

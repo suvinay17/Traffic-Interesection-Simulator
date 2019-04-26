@@ -4,7 +4,7 @@
 // enum: see http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-enum
 enum class Direction   {north, south, east, west};
 enum class VehicleType {car, suv, truck};
-enum class LightColor  {green, yellow, red};
+//enum class LightColor  {green, yellow, red};
 
 class VehicleBase
 {
@@ -15,6 +15,7 @@ class VehicleBase
       int         vehicleID;
       VehicleType vehicleType;
       Direction   vehicleDirection;
+      int         vehicleSize;
 
    public:
       VehicleBase(VehicleType type, Direction originalDirection);
@@ -22,6 +23,7 @@ class VehicleBase
       ~VehicleBase();
 
       inline int getVehicleID() const { return this->vehicleID; }
+      inline int getVehicleSize() const { return this->vehicleSize; }
 
       inline VehicleType getVehicleType() const { return this->vehicleType; }
       inline Direction   getVehicleOriginalDirection() const { return this->vehicleDirection; }

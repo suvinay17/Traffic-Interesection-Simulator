@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include "Animator.h"
 
+
 // used for drawing width -- can be defined by user
 int Animator::MAX_VEHICLE_COUNT = 9999;
 

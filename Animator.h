@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "VehicleBase.h"
+#include "TrafficLight.h"
 
 //==========================================================================
 //* class Animator

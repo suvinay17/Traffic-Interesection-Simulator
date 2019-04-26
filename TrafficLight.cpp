@@ -1,34 +1,50 @@
 #ifndef __TrafficLight_CPP__
 #define __TrafficLight_CPP__
+
+#include "TrafficLight.h"
+
 using namespace std;
 
-TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, enum status)
-: greenTime(greenTime),
-redTime(redTime),
-yellowTime(yellowTime),
-status(status)
+TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, LightColor status): greenTime(greenTime),
+    redTime(redTime), yellowTime(yellowTime), status(status){
+        if (status == LightColor::green)
+            currentTime = greenTime;
+        else if (status == LightColor::yellow)
+            currentTime = yellowTime;
+        else
+            currentTime = redTime;
+    }
 
-
-TrafficLight::~TrafficLight() {};
-TrafficLight:: status getStatus(){return this->status;};
-TrafficLight:: private setStatus(status variable){this->variable;};
-TrafficLight::void updateLight(){ 
-if(getStatus() == green)
-{
-   greenTime--;
-	if(greenTime == 0)
-		setStatus(yellow);
+TrafficLight::~TrafficLight() {}
+LightColor TrafficLight::getStatus(){
+    return this->status;
 }
-else if(getStatus() == yellow)
-{   yellowTime--
-	if(yellowTime == 0)
-   		setStatus(red);
+void TrafficLight::setStatus(LightColor variable){
+    this->status = variable;
 }
-else
-{   redTime--;
-	if(redTime == 0)
-   		setStatus(green);
-};
+void TrafficLight::updateLight(){ 
+    if(getStatus() == LightColor::green){
+        currentTime--;
+        if(currentTime == 0){
+            setStatus(LightColor::yellow);
+            currentTime = yellowTime;
+        }
+    }
+    else if(getStatus() == LightColor::yellow){   
+        currentTime--;
+        if(currentTime == 0){
+            setStatus(LightColor::red);
+            currentTime = redTime;
+        }
+    }
+    else{   
+        currentTime--;
+        if(currentTime == 0){
+            setStatus(LightColor::green);
+            currentTime = greenTime;
+        }
+    }
+}
 
 #endif
 

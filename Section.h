@@ -1,30 +1,37 @@
 #ifndef __SECTION__
 #define __SECTION__
 
-#include "Lane"
-
+#include "VehicleBase.h"
+using namespace std;
 
 class Section {
 	
 	private: 
-		bool isOccupied(){}
-		bool atIntersection(){}
+		bool isOccupied;
+		bool atIntersection;
+        VehicleBase* vehiclePtr;
 
 
 	public:
-		Section(){}
+        Section(bool isO, bool atI, VehicleBase* v);
 		~Section(){}
-		bool isOccupied(){
+		bool getOccupied(){
 			return isOccupied;
 		}
+        void setPtr(VehicleBase* ptr);
 		//car moves out of section and is no longer occupied
-		void leave(){
+		/*void leave(){
+            vehiclePtr = nullptr;
 			isOccupied = false;
 		}
 		//car enters section and is now occupied
-		void enter(){
-			isOccupied = true;
-		}
+		void enter(VehicleBase* ptr){
+			vehiclePtr = ptr;
+            isOccupied = true;
+		}*/
+        VehicleBase* getPtr(){
+            return vehiclePtr;
+        }
 
 
 				

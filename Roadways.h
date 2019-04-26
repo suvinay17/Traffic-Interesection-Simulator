@@ -3,15 +3,31 @@
 
 #include "Intersection.h"
 #include "Lane.h"
+#include "Animator.h"
+#include "TrafficLight.h"
 
-public class Roadways{
+using namespace std;
+
+class Roadways{
     public:
-        Roadways();
+        Roadways(int numSections);
 
-        void advance();
+        void advance(int t);
+
 
     private:
-        Intersection intersection;
-        vector<Lane> lanes;
+        Intersection myIntersection;
+        vector<Lane> myLanes;
+        Animator myAnimator;
+        vector<VehicleBase*> northBound;
+        vector<VehicleBase*> southBound;
+        vector<VehicleBase*> eastBound;
+        vector<VehicleBase*> westBound;
+        int numberOfSections;
+        bool continuedArrival = false;
+        VehicleBase* continuedArrivee;
+        TrafficLight northSouthLight, eastWestLight;
+
+        void spawn();
 };
 #endif
