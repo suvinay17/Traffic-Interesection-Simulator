@@ -19,29 +19,30 @@ Road::~Road()
 {
 }
 
-bool Road::getArrival(probNorth, probSouth, probEast, probWest)
+int Road::getLength()
 {
-  float totalProb = rrand() % 1 + 0;
-  if(totalProb <= .1)
-    { //add as northbound
-      return true;
-    }
-  else if(totalProb <=.2)
-    { //add as south boun
-      return true
-    }
-  else if(totalProb <= .35)
-    {
-     //add as eastbound
-     return true;
-    }
-  else if(totalProb <= .5)
-    {
-     // add as westbound
-     return true;
-    }
-  else
-     return false; 
+  return section;
+
+bool Road::getArrival(Vehicle v)
+{
+    if(Vehicle::v.getSize()==2)
+     {
+        if(!sections.at(0).Section::getOccupied() && !sections.at(1).Section::getOccupied())
+          return true;
+        return false;                 
+     }
+    else if(Vehicle::v.getSize()==3)
+     {
+        if(!sections.at(0).Section::getOccupied() && !sections.at(1).Section::getOccupied() && !sections.at(2).Section::getOccupied())
+          return true;
+        return false;
+     }
+     else if(Vehicle::v.getSize()==4)
+     {
+        if(!sections.at(0).Section::getOccupied() && !sections.at(1).Section::getOccupied()&& !sections.at(2).Section::getOccupied() && !sections.at(3).Section::getOccupied())       
+           return true;
+	return false;
+     }
 }
 direction Road::getDirection()
 {

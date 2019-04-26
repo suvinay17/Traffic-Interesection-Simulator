@@ -13,11 +13,13 @@ class TrafficLight
 		int greenTime;
 		int redTime;
 		int yellowTime;
-		enum status{open, occupied}
+		enum Status{red,green,yellow}
+                Status st;
         // public methods	
 	public:
 		void updateLight();
-		enum getStatus();
+		status getStatus();
+                void setStatus(Status s);
 
 };
 #endif

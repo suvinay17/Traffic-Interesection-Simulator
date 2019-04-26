@@ -2,16 +2,16 @@
 #define __TrafficLight_CPP__
 using namespace std;
 
-TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, enum status)
-: greenTime(greenTime),
-redTime(redTime),
-yellowTime(yellowTime),
-status(status)
+TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, Status s)
+: this.greenTime(greenTime),
+this.redTime(redTime),
+this.yellowTime(yellowTime),
+this.st(s)
 
 
 TrafficLight::~TrafficLight() {};
-TrafficLight:: status getStatus(){return this->status;};
-TrafficLight:: private setStatus(status variable){this->variable;};
+TrafficLight:: status getStatus(){return st;};
+TrafficLight:: private setStatus(Status s){st = s;};
 TrafficLight::void updateLight(){ 
 if(getStatus() == green)
 {

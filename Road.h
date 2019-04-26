@@ -5,10 +5,11 @@ using namespace std;
 class Road
 {
 	private:
-		enum direction{northbound, southbound, eastbound, westbound};
+		enum Direction{northbound, southbound, eastbound, westbound};
+                Direction dir;
 		int sections;
-		vector<vehicle> vehicles;
-		vector<sections> sections;
+		vector<Vehicle> vehicles;
+		vector<Section> sections;
 
 	public:
 		enum getDirection();
