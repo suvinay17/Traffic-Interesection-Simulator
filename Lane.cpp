@@ -28,7 +28,7 @@ int Lane::carArrival(Direction dir, bool hit)
 {
     if (hit == true){
     
-        VehicleBase arrival(VehicleType::truck, dir);
+        VehicleBase arrival(VehicleType::car, dir);
 
         vehicles.push_back(arrival);
 
@@ -44,7 +44,7 @@ int Lane::carArrival(Direction dir, bool hit)
         sections[0].setPtr(nullptr);
 
     // if full return -1
-    //
+
     cout << "vehicles" << endl;
     for (int i = 0; i < vehicles.size(); i++)
         cout << &vehicles[i] << endl;
@@ -94,12 +94,12 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
         advance();
     else{
         int stopPoint = sections.size() - (sections[sections.size()-1].getPtr())->getVehicleSize();
-
+/*
         for (int i = stopPoint -1; i > 0; i--){
             if (!sections[i].getOccupied() || sections[i].getPtr() == sections[i-1].getPtr())
                 sections[i].setPtr(sections[i-1].getPtr());
-        }
-    /*
+        }*/
+    
         for(int i = sections.size() - 2; i > 0; i--){
             if (sections[stopPoint].getPtr() != sections[sections.size() -1].getPtr()){// && !sections[i].getOccupied()))
                 sections[i].setPtr(sections[i-1].getPtr());
@@ -109,7 +109,7 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
                     buffer--;
                 }
             }
-        }*/
+        }
 
     }
 }
