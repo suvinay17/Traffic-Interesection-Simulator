@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
     Roadways roadways(8);
 
     int t = 0;
-    int time = 20;
+    int time = 40;
     char dummyChar;
     while (t <= time){
         if (t == 0)

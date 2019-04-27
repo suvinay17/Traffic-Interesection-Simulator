@@ -23,11 +23,12 @@ class Roadways{
         vector<VehicleBase*> southBound;
         vector<VehicleBase*> eastBound;
         vector<VehicleBase*> westBound;
-        int numberOfSections;
-        bool continuedArrival = false;
-        VehicleBase* continuedArrivee;
-        TrafficLight northSouthLight, eastWestLight;
+        vector< vector<VehicleBase*> > bounds;
 
-        void spawn();
+        int numberOfSections;
+        
+        TrafficLight northSouthLight, eastWestLight;
+        vector<TrafficLight> lights;
+
 };
 #endif

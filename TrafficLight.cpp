@@ -2,6 +2,7 @@
 #define __TrafficLight_CPP__
 
 #include "TrafficLight.h"
+#include <iostream>
 
 using namespace std;
 
