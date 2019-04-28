@@ -12,7 +12,7 @@ Intersection::Intersection(){
     }
 }
 
-void Intersection::advance(LightColor ns){ // look at stoplight tofix this 
+void Intersection::advance(LightColor ns){ 
    /* if (sections[2].getOccupied() && sections[2].getPtr()->getVehicleOriginalDirection() == Direction::east){
         sections[3].setPtr(sections[2].getPtr());
         dontOverWrite[3] = true;
@@ -81,7 +81,7 @@ void Intersection::advance(LightColor ns){ // look at stoplight tofix this
         
     }
     
-    if (sections[3].getOccupied() && sections[3].getPtr()->getVehicleOriginalDirection() == Direction::north){
+    if (sections[3].getOccupied() && (sections[3].getPtr()->getVehicleOriginalDirection() == Direction::north) ){ // for left turn do or direction and check if occupied 
         dontOverWrite[1] = true;
     }
     else{
@@ -112,7 +112,7 @@ void Intersection::arrival(VehicleBase* veh, int quadrant){
 }
 
 bool Intersection::isLeaving(int quadrant, Direction dir){
-     return (sections[quadrant].getOccupied() && sections[quadrant].getPtr()->getVehicleOriginalDirection() == dir);
+     return (sections[quadrant].getOccupied() && (sections[quadrant].getPtr()->getVehicleOriginalDirection() == dir));
 }
 
 vector<bool> Intersection::getDontOverWrite(){

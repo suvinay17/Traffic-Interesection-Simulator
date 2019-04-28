@@ -14,7 +14,7 @@ class Lane
         ~Lane();
 
 		Direction getDirection();
-		int carArrival(Direction dir, bool hit);
+		int carArrival(Direction dir, bool hit, VehicleBase* arrival);
         void carArrival(VehicleBase* veh);
 
 		void advance();
@@ -32,7 +32,7 @@ class Lane
     
     private:
 		int numberOfSections;
-		vector<VehicleBase> vehicles;
+		vector<VehicleBase*> vehicles;
 		vector<Section> sections;
         Direction direction;
         int buffer;

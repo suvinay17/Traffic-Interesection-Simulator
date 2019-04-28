@@ -63,6 +63,8 @@ int main(int argc, char* argv[]){
         roadways.advance(t);
         t++;
     }
+    
+    //roadways.clear();
 
     return 0;
 }

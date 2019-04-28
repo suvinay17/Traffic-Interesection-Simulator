@@ -27,28 +27,17 @@ Roadways::Roadways(int numSections) : myAnimator(numSections), numberOfSections(
     bounds.push_back(eastBound);
     bounds.push_back(westBound);
 
-    /*vector<VehicleBase*> northSouth;
-    
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);  
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);    
-    northSouth.push_back(NULL);     
-
-    myAnimator.setVehiclesNorthbound(northSouth);
-    myAnimator.setVehiclesSouthbound(northSouth);
-    myAnimator.setVehiclesWestbound(northSouth);
-    myAnimator.setVehiclesEastbound(northSouth);
-    myAnimator.setLightNorthSouth(LightColor::red);
-    myAnimator.setLightEastWest(LightColor::green);*/
-
-    // myAnimator.draw(0);
 }
 
 void Roadways::advance(int t){
+
+    // obtain a seed from the system clock:
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    mt19937 generator(seed);
+
+    uniform_real_distribution<double> dist(0.0, 1.0);
+
+    double rand = dist(generator);
     
     /*if (t == 12)
         eastWestLight.setStatus(LightColor::green);
@@ -66,12 +55,13 @@ void Roadways::advance(int t){
     myAnimator.setVehiclesWestbound(bounds[3]);
     myAnimator.draw(t);
 
-    cout << "intersection: " << endl;
+    
+    /*cout << "intersection: " << endl;
     for (int k = 0; k < 4; k++){
         cout << k << ": " << myIntersection.getVehicles()[k] << endl;
         if (myIntersection.getVehicles()[k] != nullptr)
             cout << " Dir: " << (int)myIntersection.getVehicles()[k]->getVehicleOriginalDirection() <<endl; 
-    }
+    }*/
 
 
       
@@ -137,35 +127,40 @@ void Roadways::advance(int t){
 
     for (int j = 0; j < 8; j += 2){
         
-        int k;
-        Direction d;
+        int k, q, pick = 0;
+        Direction d[2];
+        VehicleType type;
         
         if (j == 0){
-            d = Direction::north; // northbound 
+            d[1] = Direction::east;
+            if (rand > .5)
+                pick = 1;
+            else
+                pick = 0;
+            d[0] = Direction::north; // northbound 
             k = 3;
+            q = 1;
         }
         else if (j == 2){
-            d = Direction::south;// southbound
+            d[1] = Direction::west;// southbound
+            d[0] = Direction::south;
+            
             k = 0;
+            q = 2;
         }
         else if (j == 4){ // eastbound
             k = 2;
-            d = Direction::east;
+            d[0] = Direction::east;
+            d[1] = Direction::south;
+            q = 3;
         }
         else{
-            d = Direction::west;// westbound
+            d[0] = Direction::west;// westbound
+            d[1] = Direction::north;// westbound
+            pick = 1;
             k = 1;
-        }
-
-        int q;
-        if (j == 0) // northbound 
-            q = 1;
-        else if (j == 2) // southbound
-            q = 2;
-        else if (j == 4) // eastbound
-            q = 3;
-        else  // westbound
             q = 0;
+        }
 
         /*cout << "Last Section" << endl;
         cout << k << ": " << myIntersection.getLastSection()[k] << endl;*/
@@ -182,14 +177,19 @@ void Roadways::advance(int t){
             myLanes[j].advanceRed();
 
         bool h;
+        
+        //arrive.vehicleType = VehicleType::car;
+        //arrive.vehicleDirection = d;
+        //
+        VehicleBase* arrive = new VehicleBase(VehicleType::car, d[pick]);
 
-        if (t == 0)// || t == 5)
+        if (t == 0 || t == 5)
             h = true;
         else
             h = false;
 
         // arrival in preceding lane 
-        myLanes[j].carArrival(d, h);
+        myLanes[j].carArrival(d[pick], h, arrive);
         
         // advance and arrival in following lane 
         myLanes[j + 1].advance();
@@ -204,9 +204,12 @@ void Roadways::advance(int t){
         
 
         // leaving intersection
-        if (myIntersection.isLeaving(q, d)){
+        if (myIntersection.isLeaving(q, d[0])){
             myLanes[j + 1].setContinuedArrival(true);  
-            myLanes[j + 1].setContinuedArrivee(myIntersection.getVehicles()[q]);  
+            myLanes[j + 1].setContinuedArrivee(myIntersection.getVehicles()[q]); 
+
+            //cout << "j: " << j << endl;
+            //cout << "q: " << q << endl;
         }
 
         // Copying from Lanes and intersection into the vectors that are drawn
@@ -223,6 +226,33 @@ void Roadways::advance(int t){
         
         for (int i = numberOfSections + 2; i < numberOfSections + 2 + numberOfSections; i++)
             bounds[j/2][i] = myLanes[j + 1].getVehicles()[i - numberOfSections - 2];
+    }
+
+    for (int j = 0; j < 4; j += 2){
+        int k, q, pick = 0;
+        Direction d[2];
+        
+        if (j == 0){
+            d[1] = Direction::east;
+            d[0] = Direction::north; // northbound 
+            k = 3;
+            q = 1;
+        }
+        else if (j == 2){
+            d[1] = Direction::west;// southbound
+            d[0] = Direction::south;
+            q = 2;
+            k = 0;
+        }
+
+        if (myIntersection.isLeaving(q, d[0])){
+            myLanes[j + 1].setContinuedArrival(true);  
+            myLanes[j + 1].setContinuedArrivee(myIntersection.getVehicles()[q]); 
+
+            //cout << "j: " << j << endl;
+            //cout << "q: " << q << endl;
+        }
+
     }
         
     // Updating lights

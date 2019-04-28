@@ -24,22 +24,24 @@ Lane::~Lane()
 {
 }
 
-int Lane::carArrival(Direction dir, bool hit)
+int Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 {
-    if (hit == true){
+    if (buffer > 0 && hit)
+        return -1;
     
-        VehicleBase arrival(VehicleType::car, dir);
+    
+    if (hit == true){
 
         vehicles.push_back(arrival);
 
-        buffer = arrival.getVehicleSize();
+        buffer = arrival->getVehicleSize();
 
-        sections[0].setPtr(&(vehicles.back()));
+        sections[0].setPtr((vehicles.back()));
 
         hit = false;
     }
     else if (buffer > 0)
-        sections[0].setPtr(&(vehicles.back()));
+        sections[0].setPtr((vehicles.back()));
     else
         sections[0].setPtr(nullptr);
 
@@ -93,15 +95,15 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
     if (!sections[sections.size() - 1].getOccupied())
         advance();
     else{
-        int stopPoint = sections.size() - (sections[sections.size()-1].getPtr())->getVehicleSize();
-/*
+       /* int stopPoint = sections.size() - (sections[sections.size()-1].getPtr())->getVehicleSize();
+
         for (int i = stopPoint -1; i > 0; i--){
             if (!sections[i].getOccupied() || sections[i].getPtr() == sections[i-1].getPtr())
                 sections[i].setPtr(sections[i-1].getPtr());
-        }*/
+        }
     
-        for(int i = sections.size() - 2; i > 0; i--){
-            if (sections[stopPoint].getPtr() != sections[sections.size() -1].getPtr()){// && !sections[i].getOccupied()))
+        for(int i = stopPoint-2; i > 0; i--){
+            //if (sections[stopPoint].getPtr() != sections[sections.size() -1].getPtr()){// && !sections[i].getOccupied()))
                 sections[i].setPtr(sections[i-1].getPtr());
                 if (buffer > 0){
                     //arriving  = true;
@@ -109,10 +111,39 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
                     buffer--;
                 }
             }
+        }*/
+
+        int i = 0;
+
+        while (i < sections.size() - 4){ //largest vehicle is car
+            int j = i + 1;
+
+            while (sections[i].getOccupied() && sections[j].getOccupied() && j != sections.size() - 2){
+                j++;
+            }
+            //cout << "j: " << j << endl;
+            //cout << "i: " << i << endl;
+
+            if (j == i+1)
+                i = j;
+            else if (j != sections.size() - 2){ // reached end
+                for (int k = j; k >= i; k--){
+                    sections[k].setPtr(sections[k-1].getPtr());
+                }
+                if (buffer > 0)
+                    buffer--;
+
+                cout << "here" << endl;
+
+                break;
+            }
+            else 
+                break;
         }
 
     }
 }
+
 
 bool Lane::beforeIntersection(){
     return sections[sections.size()-1].getOccupied();

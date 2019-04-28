@@ -5,6 +5,10 @@
 #include "Lane.h"
 #include "Animator.h"
 #include "TrafficLight.h"
+#include "VehicleBase.h"
+
+#include <chrono>
+#include <random>
 
 using namespace std;
 
@@ -25,6 +29,8 @@ class Roadways{
         vector<VehicleBase*> westBound;
         vector< vector<VehicleBase*> > bounds;
 
+        int probCar = .6;
+        int probSUV = .3;
         int numberOfSections;
         
         TrafficLight northSouthLight, eastWestLight;
