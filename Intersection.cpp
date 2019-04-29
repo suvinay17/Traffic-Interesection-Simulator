@@ -15,62 +15,8 @@ Intersection::Intersection(){
     }
 }
 
+
 void Intersection::advance(LightColor ns){ 
-   /* if (sections[2].getOccupied() && sections[2].getPtr()->getVehicleOriginalDirection() == Direction::east){
-        sections[3].setPtr(sections[2].getPtr());
-        dontOverWrite[3] = true;
-        
-        if (lastSection[2] == 0)
-            lastSection[2] = sections[3].getPtr()->getVehicleSize();
-        else
-            lastSection[2]--;
-    }
-    else{
-        dontOverWrite[3] = false;
-        sections[3].setPtr(sections[2].getPtr());
-
-    }
-    if (sections[3].getOccupied() && sections[3].getPtr()->getVehicleOriginalDirection() == Direction::north){
-        sections[1].setPtr(sections[3].getPtr());
-        dontOverWrite[1] = true;
-        
-        if (lastSection[3] == 0)
-            lastSection[3] = sections[1].getPtr()->getVehicleSize();
-        else
-            lastSection[3]--;
-    }
-    else{
-        dontOverWrite[1] = false;
-       // sections[1].setPtr(sections[3].getPtr());
-    }
-    
-    if (sections[0].getOccupied() && sections[0].getPtr()->getVehicleOriginalDirection() == Direction::south){
-        sections[2].setPtr(sections[0].getPtr());
-        dontOverWrite[2] = true;
-        
-        if (lastSection[0] == 0)
-            lastSection[0] = sections[2].getPtr()->getVehicleSize();
-        else
-            lastSection[0]--;
-    }
-    else{
-        dontOverWrite[2] = false;
-       // sections[2].setPtr(sections[0].getPtr());
-    }
-
-    if (sections[1].getOccupied() && sections[1].getPtr()->getVehicleOriginalDirection() == Direction::west){
-        sections[0].setPtr(sections[1].getPtr());
-        dontOverWrite[0] = true; 
-        
-        if (lastSection[1] == 0)
-            lastSection[1] = sections[0].getPtr()->getVehicleSize();
-        else
-            lastSection[1]--;
-    }
-    else{
-        dontOverWrite[0] = false;
-        sections[0].setPtr(sections[1].getPtr());
-    }*/
 
     if (ns == LightColor::green || ns == LightColor::yellow){
         sections[1].setPtr(sections[3].getPtr());
@@ -110,21 +56,27 @@ void Intersection::advance(LightColor ns){
         dontOverWrite[0] = false;
 
 }
+
+
 void Intersection::arrival(VehicleBase* veh, int quadrant){
     sections[quadrant].setPtr(veh);
 }
+
 
 bool Intersection::isLeaving(int quadrant, Direction dir){
      return (sections[quadrant].getOccupied() && (sections[quadrant].getPtr()->getVehicleOriginalDirection() == dir));
 }
 
+
 vector<bool> Intersection::getDontOverWrite(){
     return dontOverWrite;
 }
 
+
 vector<int> Intersection::getLastSection(){
     return lastSection;
 }
+
 
 vector<VehicleBase*> Intersection::getVehicles(){
     vector<VehicleBase*> vs;

@@ -11,8 +11,7 @@
 
 class Intersection{
     public:
-        Intersection();
-        
+        Intersection();     
         void greenLane();
         void yellowLane();
         void redLane();
