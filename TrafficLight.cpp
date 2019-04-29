@@ -39,31 +39,31 @@ void TrafficLight::setStatus(LightColor variable){
 
 //method with the logic for changing the traffic light colors 
 void TrafficLight::updateLight(){ 
-//if the current traffic light color is green
+    //if the current traffic light color is green
     if(getStatus() == LightColor::green){
-//reduce current light color time by 1 for each second
+        //reduce current light color time by 1 for each second
         currentTime--;
-//if time left is 0 for the current traffic light color switch to the next light which in this case is yellow 
+        //if time left is 0 for the current traffic light color switch to the next light which in this case is yellow 
         if(currentTime == 0){ 
             setStatus(LightColor::yellow);
             currentTime = yellowTime;
         }
     }
-//if the current traffic light color is yellow
+    //if the current traffic light color is yellow
     else if(getStatus() == LightColor::yellow){
-//reduce the time left for the current light color by 1 for each second   
+        //reduce the time left for the current light color by 1 for each second   
         currentTime--;
-//if the time left for the current traffic light color is 0, switch to the next color which is red
+        //if the time left for the current traffic light color is 0, switch to the next color which is red
         if(currentTime == 0){
             setStatus(LightColor::red);
             currentTime = redTime;
         }
     }
-//the last option for the light color is red (if it is not yellow or green)
+    //the last option for the light color is red (if it is not yellow or green)
     else{   
-//decrement current time by one for the current color
+        //decrement current time by one for the current color
         currentTime--;
-//if the current color time reaches 0 switch to the next traffic light color that is 0
+        //if the current color time reaches 0 switch to the next traffic light color that is 0
         if(currentTime == 0){
             setStatus(LightColor::green);
             currentTime = greenTime;
