@@ -19,11 +19,11 @@ class Section {
 
 	// creates public variables
 	public:
-    Section(bool isO, bool atI, VehicleBase* v);
+    	Section(bool isO, bool atI, VehicleBase* v);
 		~Section();
 		bool getOccupied();
-    void setPtr(VehicleBase* ptr);
-    VehicleBase* getPtr();
+    	void setPtr(VehicleBase* ptr);
+    	VehicleBase* getPtr();
 
 };
 
