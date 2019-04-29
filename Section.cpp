@@ -28,9 +28,9 @@ Section::~Section(){}
 //returns a pointer to the vehicle
 VehicleBase* getPtr(){
     return vehiclePtr;
-    }
+}
 
 //returns the status of the section
 bool getOccupied(){
     return isOccupied;
-    }
+}
