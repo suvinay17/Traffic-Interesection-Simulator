@@ -245,14 +245,14 @@ void Roadways::advance(int t){
 
         // advance into intersection
         if (myLanes[j].beforeIntersection() && lights[j/4].getStatus() == LightColor::green &&
-                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left )){
+                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() >= left )){
             myIntersection.arrival(myLanes[j].getVehicles().back(), k);
         }
 
         // advance preceding lane
         if (lights[j/4].getStatus() == LightColor::green){
             if (myLanes[j].getVehicles()[inputParameters[1] - 1] != nullptr &&
-                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left ))
+                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() >= left ))
                 myLanes[j].advance();
             else
                 myLanes[j].advanceRed();
@@ -309,20 +309,18 @@ void Roadways::advance(int t){
     }
 
     for (int j = 0; j < 4; j += 2){
-        int k, q, pick = 0;
+        int q ;
         Direction d[2];
         
         if (j == 0){
             d[1] = Direction::east;
             d[0] = Direction::north; // northbound 
-            k = 3;
             q = 1;
         }
         else if (j == 2){
             d[1] = Direction::west;// southbound
             d[0] = Direction::south;
             q = 2;
-            k = 0;
         }
 
         if (myIntersection.isLeaving(q, d[0])){

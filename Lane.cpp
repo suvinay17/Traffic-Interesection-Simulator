@@ -115,9 +115,12 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
             while (sections[i].getOccupied() && sections[j].getOccupied() && j != (int)sections.size() - 2){
                 j++;
             }
-            
 
-            if (j == i+1)
+            if (j == 1){
+                sections[j].setPtr(sections[i].getPtr());
+                break;
+            }
+            else if (j == i+1)
                 i = j;
             else if (j != (int)sections.size() - 2){ // reached end
                 for (int k = j; k >= i; k--){
