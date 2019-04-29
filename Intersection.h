@@ -1,3 +1,6 @@
+/*Written by Allie, Ting, Suvinay. Date of last edit: April 28, 2019.
+ * .h file for declaring the attributes of the intersection infront of the lanes
+ */
 #ifndef __INTERSECTION_H__
 #define __INTERSECTION_H__
 

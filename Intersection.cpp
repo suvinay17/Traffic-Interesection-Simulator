@@ -1,3 +1,6 @@
+/*Written by Allie, Ting, Suvinay. Last edit: arpil 28, 2019.
+*Implementes the intersection portion infront of the lanes
+*/
 #include "Intersection.h"
 #include "VehicleBase.h"
 #include <stdlib.h>
