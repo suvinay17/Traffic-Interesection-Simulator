@@ -1,3 +1,8 @@
+//Authors: Allie, Ting, Suvinay
+//Last edit: April 28, 2019
+//Implementation of  sections for lane, it holds vehiclePtr and the
+// status for the section
+
 #ifndef __SECTION__
 #define __SECTION__
 
@@ -5,39 +10,21 @@
 using namespace std;
 
 class Section {
-	
-	private: 
+
+	// creates private variables
+	private:
 		bool isOccupied;
 		bool atIntersection;
-        VehicleBase* vehiclePtr;
+    	VehicleBase* vehiclePtr;
 
-
+	// creates public variables
 	public:
-        Section(bool isO, bool atI, VehicleBase* v);
-		~Section(){}
-		bool getOccupied(){
-			return isOccupied;
-		}
-        void setPtr(VehicleBase* ptr);
-		//car moves out of section and is no longer occupied
-		/*void leave(){
-            vehiclePtr = nullptr;
-			isOccupied = false;
-		}
-		//car enters section and is now occupied
-		void enter(VehicleBase* ptr){
-			vehiclePtr = ptr;
-            isOccupied = true;
-		}*/
-        VehicleBase* getPtr(){
-            return vehiclePtr;
-        }
+    	Section(bool isO, bool atI, VehicleBase* v);
+		~Section();
+		bool getOccupied();
+    	void setPtr(VehicleBase* ptr);
+    	VehicleBase* getPtr();
 
-
-				
 };
 
 #endif
-
-
-//in constructor make either true or false roadway will be true vector of sections is false 

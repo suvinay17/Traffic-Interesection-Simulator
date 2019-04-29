@@ -1,5 +1,6 @@
-/** Lane.cpp written by Suvinay, serves as the road made up of sections for the traffic intersection project
- */
+/** Lane.cpp written by Suvinay,Ting, and Allie. Last edited on 28th April, 2019
+* Serves as the lane made up of sections for the traffic intersection project.
+*/
 #ifndef __LANE_CPP__
 #define __LANE_CPP__
 
@@ -8,6 +9,8 @@
 #include <vector>
 #include "Lane.h"
 
+
+// Constuctor for setting up lane based on the number of sections based on the input file and the direction in which the cars of that lane will go in
 Lane::Lane(int numSections, Direction d)
 {
     for (int i = 0; i < numSections; i++)
@@ -21,14 +24,17 @@ Lane::Lane(int numSections, Direction d)
 }
 
 
+//destructor
 Lane::~Lane()
 {
 }
 
-int Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
+
+//method that spawns a new vehicle based on the direction
+void Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 {
     if (buffer > 0 && hit)
-        return -1;
+        return;
     
     
     if (hit == true){
@@ -46,21 +52,24 @@ int Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
     else
         sections[0].setPtr(nullptr);
 
+
     // if full return -1
 
     //cout << "vehicles" << endl;
     //for (int i = 0; i < vehicles.size(); i++)
         //cout << &vehicles[i] << endl;
+
  
 
-    return 1;
 }
 
+//method 
 void Lane::carArrival(VehicleBase* veh){
     sections[0].setPtr(veh);
     
 }
 
+//method that returns all the vehicles in one lane
 vector<VehicleBase*> Lane::getVehicles(){
     vector<VehicleBase*> vs;
     
@@ -71,13 +80,14 @@ vector<VehicleBase*> Lane::getVehicles(){
     return vs;
 }
 
-
+//method that returns the directions the vehicles are heading in, in the specific lane.
 Direction Lane::getDirection()
 {
   return direction;
 }
 
 
+//method used to advance cars
 void Lane::advance()
 { 
     for(int i = sections.size() - 1; i > 0; i--){
@@ -85,34 +95,17 @@ void Lane::advance()
     }
 
     if (buffer > 0){
-        //arriving  = true;
-        //sections[0].setPtr(&(vehicles.front()));
         buffer--;
     }
 }
 
+
+//method with logic to advance cars that are not touching the intersection to move ahead during red and yellow lights
 void Lane::advanceRed() // with more cars, advance only up to stop point
 { 
     if (!sections[(int)sections.size() - 1].getOccupied())
         advance();
     else{
-       /* int stopPoint = sections.size() - (sections[sections.size()-1].getPtr())->getVehicleSize();
-
-        for (int i = stopPoint -1; i > 0; i--){
-            if (!sections[i].getOccupied() || sections[i].getPtr() == sections[i-1].getPtr())
-                sections[i].setPtr(sections[i-1].getPtr());
-        }
-    
-        for(int i = stopPoint-2; i > 0; i--){
-            //if (sections[stopPoint].getPtr() != sections[sections.size() -1].getPtr()){// && !sections[i].getOccupied()))
-                sections[i].setPtr(sections[i-1].getPtr());
-                if (buffer > 0){
-                    //arriving  = true;
-                    //sections[0].setPtr(&(vehicles.front()));
-                    buffer--;
-                }
-            }
-        }*/
 
         int i = 0;
 
@@ -122,8 +115,7 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
             while (sections[i].getOccupied() && sections[j].getOccupied() && j != (int)sections.size() - 2){
                 j++;
             }
-            //cout << "j: " << j << endl;
-            //cout << "i: " << i << endl;
+            
 
             if (j == i+1)
                 i = j;
@@ -149,22 +141,30 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
 }
 
 
+//method that checks if a vehicle is touching an interesection
 bool Lane::beforeIntersection(){
     return sections[sections.size()-1].getOccupied();
 }
+
+
 
 bool Lane::getContinuedArrival(){
     return continuedArrival;
 }
 
 
+
 void Lane::setContinuedArrival(bool val){
     continuedArrival = val;
 }
+
+
 	
 VehicleBase* Lane::getContinuedArrivee(){
     return continuedArrivee;
 }
+
+
 
 void Lane::setContinuedArrivee(VehicleBase* veh){
     continuedArrivee = veh;
