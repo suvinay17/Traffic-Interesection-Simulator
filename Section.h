@@ -15,7 +15,7 @@ class Section {
 	private:
 		bool isOccupied;
 		bool atIntersection;
-    VehicleBase* vehiclePtr;
+    	VehicleBase* vehiclePtr;
 
 	// creates public variables
 	public:
