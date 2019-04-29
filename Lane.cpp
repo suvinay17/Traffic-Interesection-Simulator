@@ -48,9 +48,9 @@ int Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 
     // if full return -1
 
-    cout << "vehicles" << endl;
-    for (int i = 0; i < vehicles.size(); i++)
-        cout << &vehicles[i] << endl;
+    //cout << "vehicles" << endl;
+    //for (int i = 0; i < vehicles.size(); i++)
+        //cout << &vehicles[i] << endl;
  
 
     return 1;
@@ -64,7 +64,7 @@ void Lane::carArrival(VehicleBase* veh){
 vector<VehicleBase*> Lane::getVehicles(){
     vector<VehicleBase*> vs;
     
-    for (int i = 0; i < sections.size(); i++){
+    for (int i = 0; i < (int)sections.size(); i++){
         vs.push_back(sections[i].getPtr());
     }
 
@@ -93,7 +93,7 @@ void Lane::advance()
 
 void Lane::advanceRed() // with more cars, advance only up to stop point
 { 
-    if (!sections[sections.size() - 1].getOccupied())
+    if (!sections[(int)sections.size() - 1].getOccupied())
         advance();
     else{
        /* int stopPoint = sections.size() - (sections[sections.size()-1].getPtr())->getVehicleSize();
@@ -119,7 +119,7 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
         while (i < sections.size() - 4){ //largest vehicle is car
             int j = i + 1;
 
-            while (sections[i].getOccupied() && sections[j].getOccupied() && j != sections.size() - 2){
+            while (sections[i].getOccupied() && sections[j].getOccupied() && j != (int)sections.size() - 2){
                 j++;
             }
             //cout << "j: " << j << endl;
@@ -127,14 +127,17 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
 
             if (j == i+1)
                 i = j;
-            else if (j != sections.size() - 2){ // reached end
+            else if (j != (int)sections.size() - 2){ // reached end
                 for (int k = j; k >= i; k--){
+                    if (k == 0)
+                        break;
+
                     sections[k].setPtr(sections[k-1].getPtr());
                 }
                 if (buffer > 0)
                     buffer--;
 
-                cout << "here" << endl;
+                //cout << "here" << endl;
 
                 break;
             }

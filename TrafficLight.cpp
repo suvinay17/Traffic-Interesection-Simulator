@@ -23,7 +23,6 @@ LightColor TrafficLight::getStatus(){
 }
 void TrafficLight::setStatus(LightColor variable){
     this->status = variable;
-
 }
 void TrafficLight::updateLight(){ 
     if(getStatus() == LightColor::green){
@@ -49,9 +48,8 @@ void TrafficLight::updateLight(){
     }
 }
 
+int TrafficLight::getCurrentTime(){
+    return currentTime;
+}
+
 #endif
-
-
-
-
-

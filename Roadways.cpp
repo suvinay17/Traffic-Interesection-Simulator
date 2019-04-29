@@ -1,18 +1,22 @@
 #include "Roadways.h"
 #include <iostream>
+#include <chrono>
+#include <random>
 
-Roadways::Roadways(int numSections) : myAnimator(numSections), numberOfSections(numSections),
-    northSouthLight(12, 15, 3, LightColor::red), eastWestLight(12, 15 ,3, LightColor::green){
+
+Roadways::Roadways(vector<double> inParams) : inputParameters(inParams), myAnimator((int)inParams[1]), 
+    northSouthLight((int)inParams[2], (int)inParams[4] + (int)inParams[5], (int)inParams[3], LightColor::red), 
+    eastWestLight((int)inParams[4], (int)inParams[2] + (int)inParams[3], (int)inParams[5], LightColor::green){
     Direction orientations[4] = {Direction::north, Direction::south, Direction::east, Direction::west}; 
 
 
     for (int i = 0; i < 8; i++){
-        Lane lane(numSections, orientations[i/2]);
+        Lane lane((int)inputParameters[1], orientations[i/2]);
         myLanes.push_back(lane);
     }
 
 
-    for (int j = 0; j < (2 * (numSections) + 2); j++){
+    for (int j = 0; j < (2 * (int)(inputParameters[1]) + 2); j++){
         northBound.push_back(NULL);
         southBound.push_back(NULL);
         westBound.push_back(NULL);
@@ -38,11 +42,9 @@ void Roadways::advance(int t){
     uniform_real_distribution<double> dist(0.0, 1.0);
 
     double rand = dist(generator);
-    
-    /*if (t == 12)
-        eastWestLight.setStatus(LightColor::green);
-    */
-
+    double rand2 = dist(generator);
+    double rand3 = dist(generator);
+ 
     // Setting up lights to be drawn
     myAnimator.setLightNorthSouth(lights[0].getStatus());
     myAnimator.setLightEastWest(lights[1].getStatus());
@@ -78,83 +80,148 @@ void Roadways::advance(int t){
             myIntersection.arrival(nullptr, i);
     }
 
-       /* // advance into intersection
-        if (myLanes[4].beforeIntersection() && eastWestLight.getStatus() == LightColor::green){
-            myIntersection.arrival(myLanes[4].getVehicles().back());
-            cout << "here" << endl;
-        }
-        else
-            myIntersection.arrival(nullptr);
-        // advance preceding lane
-        if (eastWestLight.getStatus() == LightColor::green)
-            myLanes[4].advance();
-        else
-            myLanes[4].advanceRed();
-        
-        // arrival in preceding lane 
-        spawn();
-        
-        // advance and arrival in following lane 
-        myLanes[5].advance();
-
-        if (myLanes[5].getContinuedArrival()){
-            myLanes[5].carArrival(myLanes[5].getContinuedArrivee());
-            myLanes[5].setContinuedArrival(false);
-        }
-        else
-            myLanes[5].carArrival(nullptr);
-
-        // leaving intersection
-        if (myIntersection.isLeaving()){
-            myLanes[5].setContinuedArrival(true);  
-            myLanes[5].setContinuedArrivee(myIntersection.getVehicles()[3]);  
-        }
-
-        // Copying from Lanes and intersection into the vectors that are drawn
-
-        for (int i = 0; i < myLanes[4].getVehicles().size(); i++)
-            eastBound[i] = myLanes[4].getVehicles()[i];
-
-        int k = 2;
-        
-        for (int i = numberOfSections; i < numberOfSections + 2; i++){
-            eastBound[i] = myIntersection.getVehicles()[k];
-            k++;
-        }
-        
-        for (int i = numberOfSections + 2; i < numberOfSections + 2 + numberOfSections; i++)
-            eastBound[i] = myLanes[5].getVehicles()[i - numberOfSections - 2]; */
-
     for (int j = 0; j < 8; j += 2){
         
         int k, q, pick = 0;
+        bool h = false;
         Direction d[2];
         VehicleType type;
-        
+
         if (j == 0){
+            if (rand < inputParameters[6]){
+                h = true; 
+
+                if (rand2 < inputParameters[10]){
+                    type = VehicleType::car;
+
+                    if (rand3 < inputParameters[12])
+                        pick = 1;
+                    else
+                        pick = 0;
+                }
+                else if (rand2 > inputParameters[10] && rand2 < inputParameters[10] + inputParameters[11]){
+                    type = VehicleType::suv;
+
+                    if (rand3 < inputParameters[14])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+                else{
+                    type = VehicleType::truck;
+
+                    if (rand3 < inputParameters[16])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+            }
+                        
             d[1] = Direction::east;
-            if (rand > .5)
-                pick = 1;
-            else
-                pick = 0;
             d[0] = Direction::north; // northbound 
             k = 3;
             q = 1;
         }
         else if (j == 2){
+            if (rand < inputParameters[7] + inputParameters[6] && rand > inputParameters[6]){
+                h = true; 
+
+                if (rand2 < inputParameters[10]){
+                    type = VehicleType::car;
+
+                    if (rand3 < inputParameters[12])
+                        pick = 1;
+                    else
+                        pick = 0;
+                }
+                else if (rand2 > inputParameters[10] && rand2 < inputParameters[10] + inputParameters[11]){
+                    type = VehicleType::suv;
+
+                    if (rand3 < inputParameters[14])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+                else{
+                    type = VehicleType::truck;
+
+                    if (rand3 < inputParameters[16])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+            }
+
             d[1] = Direction::west;// southbound
             d[0] = Direction::south;
-            
+
             k = 0;
             q = 2;
         }
         else if (j == 4){ // eastbound
+            if (rand < inputParameters[8] + inputParameters[7] + inputParameters[6] && (rand > inputParameters[6] + inputParameters[7])){
+                h = true; 
+
+                if (rand2 < inputParameters[10]){
+                    type = VehicleType::car;
+
+                    if (rand3 < inputParameters[12])
+                        pick = 1;
+                    else
+                        pick = 0;
+                }
+                else if (rand2 > inputParameters[10] && rand2 < inputParameters[10] + inputParameters[11]){
+                    type = VehicleType::suv;
+
+                    if (rand3 < inputParameters[14])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+                else{
+                    type = VehicleType::truck;
+
+                    if (rand3 < inputParameters[16])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+            }
+            
             k = 2;
             d[0] = Direction::east;
             d[1] = Direction::south;
             q = 3;
         }
         else{
+            if (rand > inputParameters[6] + inputParameters[7] + inputParameters[8]){
+                h = true; 
+
+                if (rand2 < inputParameters[10]){
+                    type = VehicleType::car;
+
+                    if (rand3 < inputParameters[12])
+                        pick = 1;
+                    else
+                        pick = 0;
+                }
+                else if (rand2 > inputParameters[10] && rand2 < inputParameters[10] + inputParameters[11]){
+                    type = VehicleType::suv;
+
+                    if (rand3 < inputParameters[14])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+                else{
+                    type = VehicleType::truck;
+
+                    if (rand3 < inputParameters[16])
+                        pick = 1;
+                    else 
+                        pick = 0;
+                }
+            }
             d[0] = Direction::west;// westbound
             d[1] = Direction::north;// westbound
             pick = 1;
@@ -164,29 +231,43 @@ void Roadways::advance(int t){
 
         /*cout << "Last Section" << endl;
         cout << k << ": " << myIntersection.getLastSection()[k] << endl;*/
+        int left = 0;
+        int index = (int)inputParameters[1] - 1;
+        while (index > 1 && myLanes[j].getVehicles()[index] != nullptr && (myLanes[j].getVehicles()[index] == myLanes[j].getVehicles()[index - 1] || 
+                myLanes[j].getVehicles()[(int)inputParameters[1] - 2] == nullptr)){
+            left++;
+            index--;
+        }
+
+        cout << "LightTime " << lights[j/4].getCurrentTime() << endl;
+        cout << "left " << left << endl;
+
+
         // advance into intersection
-        if (myLanes[j].beforeIntersection() && lights[j/4].getStatus() == LightColor::green){
+        if (myLanes[j].beforeIntersection() && lights[j/4].getStatus() == LightColor::green &&
+                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left)){
             myIntersection.arrival(myLanes[j].getVehicles().back(), k);
-            //cout << "here" << endl;
         }
 
         // advance preceding lane
-        if (lights[j/4].getStatus() == LightColor::green)
-            myLanes[j].advance();
+        if (lights[j/4].getStatus() == LightColor::green){
+            if (myLanes[j].getVehicles()[inputParameters[1] - 1] != nullptr &&
+                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left))
+                myLanes[j].advance();
+            else
+                myLanes[j].advanceRed();
+        }
         else
             myLanes[j].advanceRed();
 
-        bool h;
         
-        //arrive.vehicleType = VehicleType::car;
-        //arrive.vehicleDirection = d;
-        //
-        VehicleBase* arrive = new VehicleBase(VehicleType::suv, d[pick]);
+        
+        VehicleBase* arrive = new VehicleBase(type, d[pick]);
 
-        if (t == 0 || t == 5)
-            h = true;
-        else
-            h = false;
+        //if (t == 0 || t == 5)
+          //  h = true;
+        //else
+        //    h = false;
 
         // arrival in preceding lane 
         myLanes[j].carArrival(d[pick], h, arrive);
@@ -214,18 +295,17 @@ void Roadways::advance(int t){
 
         // Copying from Lanes and intersection into the vectors that are drawn
 
-        for (int i = 0; i < numberOfSections; i++)
-            bounds[j/2][i] = myLanes[j].getVehicles()[i]; //  and intersection 
-
+        for (int i = 0; i < (int)inputParameters[1]; i++)
+            bounds[j/2][i] = myLanes[j].getVehicles()[i]; 
         
-        for (int i = numberOfSections; i < numberOfSections + 2; i++){
+        for (int i = (int)inputParameters[1]; i < (int)inputParameters[1] + 2; i++){
             bounds[j/2][i] = myIntersection.getVehicles()[k];
         
             k = q;
         }
         
-        for (int i = numberOfSections + 2; i < numberOfSections + 2 + numberOfSections; i++)
-            bounds[j/2][i] = myLanes[j + 1].getVehicles()[i - numberOfSections - 2];
+        for (int i = (int)inputParameters[1] + 2; i < (int)inputParameters[1] + 2 + (int)inputParameters[1]; i++)
+            bounds[j/2][i] = myLanes[j + 1].getVehicles()[i - (int)inputParameters[1] - 2];
     }
 
     for (int j = 0; j < 4; j += 2){

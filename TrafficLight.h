@@ -24,6 +24,7 @@ class TrafficLight
 		void setStatus(LightColor variable);
 		LightColor getStatus();
         void updateLight(); 
+        int getCurrentTime();
 
 };
 #endif

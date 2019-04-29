@@ -7,20 +7,17 @@
 #include "TrafficLight.h"
 #include "VehicleBase.h"
 
-#include <chrono>
-#include <random>
-
 using namespace std;
 
 class Roadways{
     public:
-        Roadways(int numSections);
+        Roadways(vector<double> inParams);
 
         void advance(int t);
 
-
     private:
         Intersection myIntersection;
+        vector<double> inputParameters;
         vector<Lane> myLanes;
         Animator myAnimator;
         vector<VehicleBase*> northBound;
@@ -29,9 +26,7 @@ class Roadways{
         vector<VehicleBase*> westBound;
         vector< vector<VehicleBase*> > bounds;
 
-        int probCar = .6;
-        int probSUV = .3;
-        int numberOfSections;
+        
         
         TrafficLight northSouthLight, eastWestLight;
         vector<TrafficLight> lights;
