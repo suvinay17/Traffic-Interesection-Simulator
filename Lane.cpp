@@ -17,6 +17,7 @@ Lane::Lane(int numSections, Direction d)
     }
 
     direction = d;
+    buffer = 0;
 }
 
 
