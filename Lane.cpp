@@ -109,7 +109,7 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
 
         int i = 0;
 
-        while (i < (int)sections.size() - 4){ //largest vehicle is car
+        while (i < (int)sections.size() - 4){ //largest vehicle is truck 
             int j = i + 1;
 
             while (sections[i].getOccupied() && sections[j].getOccupied() && j != (int)sections.size() - 2){
