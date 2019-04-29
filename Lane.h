@@ -1,3 +1,6 @@
+/* Written by Allie, Ting, Suvinay. Last edited April 28th, 2019.
+ * Declaring the lane which consists of sections and the direction 
+ */
 #ifndef __LANE_H__
 #define __LANE_H__
 using namespace std;
