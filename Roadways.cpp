@@ -181,7 +181,7 @@ void Roadways::advance(int t){
         //arrive.vehicleType = VehicleType::car;
         //arrive.vehicleDirection = d;
         //
-        VehicleBase* arrive = new VehicleBase(VehicleType::car, d[pick]);
+        VehicleBase* arrive = new VehicleBase(VehicleType::suv, d[pick]);
 
         if (t == 0 || t == 5)
             h = true;
