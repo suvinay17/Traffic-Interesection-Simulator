@@ -239,20 +239,20 @@ void Roadways::advance(int t){
             index--;
         }
 
-        cout << "LightTime " << lights[j/4].getCurrentTime() << endl;
-        cout << "left " << left << endl;
+        //cout << "LightTime " << lights[j/4].getCurrentTime() << endl;
+        //cout << "left " << left << endl;
 
 
         // advance into intersection
         if (myLanes[j].beforeIntersection() && lights[j/4].getStatus() == LightColor::green &&
-                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left)){
+                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left )){
             myIntersection.arrival(myLanes[j].getVehicles().back(), k);
         }
 
         // advance preceding lane
         if (lights[j/4].getStatus() == LightColor::green){
             if (myLanes[j].getVehicles()[inputParameters[1] - 1] != nullptr &&
-                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left))
+                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left ))
                 myLanes[j].advance();
             else
                 myLanes[j].advanceRed();

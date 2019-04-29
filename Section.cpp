@@ -26,11 +26,11 @@ void Section::setPtr(VehicleBase* ptr){
 Section::~Section(){}
 
 //returns a pointer to the vehicle
-VehicleBase* getPtr(){
+VehicleBase* Section::getPtr(){
     return vehiclePtr;
 }
 
 //returns the status of the section
-bool getOccupied(){
+bool Section::getOccupied(){
     return isOccupied;
 }

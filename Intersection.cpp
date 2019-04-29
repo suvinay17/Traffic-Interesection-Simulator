@@ -126,7 +126,7 @@ vector<int> Intersection::getLastSection(){
 vector<VehicleBase*> Intersection::getVehicles(){
     vector<VehicleBase*> vs;
     //cout << "Intersection" << endl;
-    for (int i = 0; i < sections.size(); i++){
+    for (int i = 0; i < (int)sections.size(); i++){
         vs.push_back(sections[i].getPtr());
       //  cout << sections[i].getPtr() << endl;
     }
