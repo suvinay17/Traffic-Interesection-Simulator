@@ -26,7 +26,7 @@ VehicleBase::VehicleBase(VehicleType type, Direction direction)
         this->vehicleSize = 4;
 }
 
-//default constructor
+//copy constructor
 VehicleBase::VehicleBase(const VehicleBase& other)
     : vehicleID(other.vehicleID),
       vehicleType(other.vehicleType),
