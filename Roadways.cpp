@@ -260,9 +260,10 @@ void Roadways::advance(int t){
         else
             myLanes[j].advanceRed();
 
-        
-        
-        VehicleBase* arrive = new VehicleBase(type, d[pick]);
+        VehicleBase* arrive;
+
+        if (h)
+            arrive = new VehicleBase(type, d[pick]);
 
         //if (t == 0 || t == 5)
           //  h = true;
@@ -271,7 +272,7 @@ void Roadways::advance(int t){
 
         // arrival in preceding lane 
         myLanes[j].carArrival(d[pick], h, arrive);
-        
+
         // advance and arrival in following lane 
         myLanes[j + 1].advance();
 
@@ -337,5 +338,12 @@ void Roadways::advance(int t){
 
     lights[0].updateLight();
     lights[1].updateLight();
+}
+
+void Roadways::clear(){
+    for (int i = 0; i < 8; i++){
+        myLanes[i].clear();
+        //cout << "here" << endl;
+    }
 }
 

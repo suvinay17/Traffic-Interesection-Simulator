@@ -37,6 +37,8 @@ class Lane
 	       	VehicleBase* getContinuedArrivee();
 		
         	void setContinuedArrivee(VehicleBase* veh);
+
+            void clear();
     
         //private members
         private:

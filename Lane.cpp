@@ -33,8 +33,10 @@ Lane::~Lane()
 //method that spawns a new vehicle based on the direction
 void Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 {
-    if (buffer > 0 && hit)
+    if (buffer > 0 && hit){
+        delete arrival;
         return;
+    }
     
     
     if (hit == true){
@@ -171,6 +173,15 @@ VehicleBase* Lane::getContinuedArrivee(){
 
 void Lane::setContinuedArrivee(VehicleBase* veh){
     continuedArrivee = veh;
+}
+
+void Lane::clear(){
+   for (vector<VehicleBase*>::iterator it = vehicles.begin(); it != vehicles.end();){
+       delete *it;  
+       it = vehicles.erase(it);
+
+       cout << "here" << endl;
+   }
 }
 
 #endif

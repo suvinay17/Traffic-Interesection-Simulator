@@ -15,6 +15,8 @@ class Roadways{
 
         void advance(int t);
 
+        void clear();
+
     private:
         Intersection myIntersection;
         vector<double> inputParameters;
