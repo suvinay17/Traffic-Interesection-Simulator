@@ -1,5 +1,5 @@
-EXECS = Simulation #testAnimator
-OBJS = VehicleBase.o Simulation.o Section.o TrafficLight.o Lane.o Intersection.o Roadways.o Animator.o#ParameterParser.o#testAnimator.o Animator.o VehicleBase.o
+EXECS = Simulation 
+OBJS = VehicleBase.o Simulation.o Section.o TrafficLight.o Lane.o Intersection.o Roadways.o Animator.o
 
 #### use next two lines for Mac
 #CC = clang++
