@@ -7,10 +7,16 @@
 
 using namespace std;
 
+/* Writted by Ting, Suvinay, Allie. This program is passed the name of a 
+ * correctly formatted input file with the required parameters. It reads 
+ * that files and simulates a traffic intersection passed on the parameters 
+ * from the input file.
+ */
+
 int main(int argc, char* argv[]){
     ifstream inputFile; // input-file stream variable for reading
     
-    //check for correct number of command-line arguments, or else print error message and terminate program
+    // check for correct number of command-line arguments, or else print error message and terminate program
     if (argc != 3){
         cerr << "Usage: " << argv[0] << " [input text filename] " << "[boolean value for pause stepability]" << endl;
         return 0;
@@ -23,34 +29,34 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    int i = 0;
-    
-    vector<double> readData;
+    vector<double> readData; // data from input file
 
     string token;
     string dummy;
-
+    
+    // parse input file, stream through dummy first to get actual token of data 
     while (inputFile.good()){
         inputFile >> dummy >> token;
 
         readData.push_back(stod(token));
         
-        if (inputFile.eof())
+        // once we reach end of file, break
+        if (inputFile.eof()) 
             break;
         else if (inputFile.fail()){
             cerr << "Error reading file" << endl;
             return 1;
         }
-
-        i++;
     }
-
+     
+    // always remember to close your stream!
     inputFile.close();
-
+    
+    // create container class for intersection and lanes with input parameters from read file
     Roadways roadways(readData);
 
     int t = 0;
-    int time = (int)readData[0];
+    int time = (int)readData[0]; // max simulation time from read in file 
     bool stepActivated;
     char dummyChar;
     
@@ -61,11 +67,11 @@ int main(int argc, char* argv[]){
     else
         stepActivated = false;
 
-    while (t < time){
+    while (t <= time){
         if (t == 0)
             cout << "Press enter to start:";
         if (stepActivated){
-            cin.get(dummyChar);
+            cin.get(dummyChar); // read in dummy key press
             roadways.advance(t);
         }
         else{
@@ -75,7 +81,7 @@ int main(int argc, char* argv[]){
         t++;
     }
     
-    roadways.clear();
+    roadways.clear(); // clean up dynamically allocated data
 
     return 0;
 }

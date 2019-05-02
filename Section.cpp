@@ -7,9 +7,8 @@
 #include "Section.h"
 
 //constructor ititializes isOccupied, atIntersection, vehiclePtr
-Section::Section(bool isO, bool atI, VehicleBase* v){
+Section::Section(bool isO, VehicleBase* v){
     isOccupied = isO;
-    atIntersection = atI;
     vehiclePtr = v;
 }
 

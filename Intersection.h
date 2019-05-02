@@ -11,21 +11,31 @@
 
 class Intersection{
     public:
+        // constructor
         Intersection();     
-        void greenLane();
-        void yellowLane();
-        void redLane();
+        
+        // advances the cars in the intersection based on the color of
+        // of the north south light which is passed in
         void advance(LightColor ns);
+        
+        // places specified vehicle arrival in specified quadrant of the 
+        // intersection
         void arrival(VehicleBase* veh, int quadrant);
+        
+        // checks if there is a vehicle in the given quadrant and the vehicle is
+        // leaving the intersection going the given direction
         bool isLeaving(int quadrant, Direction dir);
+        
+        // returns the vector of boolean values of whether the sections should be overwritten with an
+        // arrival or not, corresponding with each quadrant of the intersection
         vector<bool> getDontOverWrite();
-        vector<int> getLastSection();
+        
+        // returns the vectos of vehicle pointers corresponding with each quadrant of the
+        // intersection
         vector<VehicleBase*> getVehicles();
 
     private:
         vector<Section> sections;
         vector<bool> dontOverWrite;
-        vector<int> lastSection;
-        
 };
 #endif

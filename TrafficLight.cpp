@@ -25,19 +25,19 @@ TrafficLight::TrafficLight(int greenTime, int redTime, int yellowTime, LightColo
 TrafficLight::~TrafficLight() {}
 
 
-//Getter method for getting the current light color of the traffic light
+// Getter method for getting the current light color of the traffic light
 LightColor TrafficLight::getStatus(){
     return this->status;
 }
 
 
-//Setter method for changing the light color of the traffic light
+// Setter method for changing the light color of the traffic light
 void TrafficLight::setStatus(LightColor variable){
     this->status = variable;
 }
 
 
-//method with the logic for changing the traffic light colors 
+// method with the logic for changing the traffic light colors 
 void TrafficLight::updateLight(){ 
     //if the current traffic light color is green
     if(getStatus() == LightColor::green){

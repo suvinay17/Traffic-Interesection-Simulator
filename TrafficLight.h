@@ -10,33 +10,37 @@ enum class LightColor {green, yellow, red};
 
 class TrafficLight
 {
-        //private member variables
+    //private member variables
 	private:
-                /**the color times to be obtained from the constructor based on the input files. Determines how long each color of the traffic light will be on for.*/
+        // the color times to be obtained from the constructor based on the input files. Determines how long each color of the traffic light will be on for.*/
 		int greenTime;
 		int redTime;
 		int yellowTime;
-                //status will store the current color of the traffic light
+        
+        //status will store the current color of the traffic light
 		LightColor status;
-                //current time will store the updated time left for the current light color
-                int currentTime;
+        
+        //current time will store the updated time left for the current light color
+        int currentTime;
 
 
-        // public methods	
+    // public methods	
 	public:
-                //constructor
+            //constructor
         	TrafficLight(int greenTime, int redTime, int yellowTime, LightColor status);
-                //destructor
+        
+            //destructor
        	 	~TrafficLight();
-                //mutator method for changing the traffic light color 
+            
+            //mutator method for changing the traffic light color 
             void setStatus(LightColor variable);
-                //accessor method for getting the current light color 
-            LightColor getStatus();
 
+            //accessor method for getting the current light color 
+            LightColor getStatus();
 
             int getCurrentTime();
 
-                //method containing the logic for changing the traffic light color
+            //method containing the logic for changing the traffic light color
         	void updateLight(); 
 
 
