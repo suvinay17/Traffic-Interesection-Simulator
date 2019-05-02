@@ -34,22 +34,39 @@ each clock tick every 200 milliseconds until again it reaches the maximum simula
 
 The input file must contain the following information in the order as this example:
 maximum_simulated_time:                 1000
+
 number_of_sections_before_intersection:   10
+
 green_north_south:                        12
+
 yellow_north_south:                        3
+
 green_east_west:                          12
+
 yellow_east_west:                          3
+
 prob_new_vehicle_northbound:               0.1
+
 prob_new_vehicle_southbound:               0.1
+
 prob_new_vehicle_eastbound:                0.15
+
 prob_new_vehicle_westbound:                0.15
+
 proportion_of_cars:                        0.6
+
 proportion_of_SUVs:                        0.3
+
 prob_right_turn_cars:                      0.4
+
 prob_left_turn_cars:                       0.1
+
 prob_right_turn_SUVs:                      0.3
+
 prob_left_turn_SUVs:                       0.05
+
 prob_right_turn_trucks:                    0.2
+
 prob_left_turn_trucks:                     0.02
 
 
