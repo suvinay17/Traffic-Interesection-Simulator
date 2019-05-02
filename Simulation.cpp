@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
     Roadways roadways(readData);
 
     int t = 0;
-    int time = 10; //(int)readData[0];
+    int time = (int)readData[0];
     bool stepActivated;
     char dummyChar;
     
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]){
     else
         stepActivated = false;
 
-    while (t <= time){
+    while (t < time){
         if (t == 0)
             cout << "Press enter to start:";
         if (stepActivated){

@@ -33,24 +33,37 @@ Lane::~Lane()
 //method that spawns a new vehicle based on the direction
 void Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 {
-    if (buffer > 0 && hit){
-        delete arrival;
+    //cout << (int)direction << ": " << buffer << endl;
+    
+    if (isFull()){
+        if (hit)
+            delete arrival;
         return;
     }
     
+    if (buffer > 0 && hit){
+        delete arrival;
+        
+        sections[0].setPtr((vehicles.back()));
+        buffer--;
+        return;
+    }
     
-    if (hit == true){
+    if (buffer > 0){
+        sections[0].setPtr((vehicles.back()));
+        buffer--;
+    }
+    else if (hit == true){
 
         vehicles.push_back(arrival);
 
         buffer = arrival->getVehicleSize();
 
         sections[0].setPtr((vehicles.back()));
+        buffer--;
 
         hit = false;
     }
-    else if (buffer > 0)
-        sections[0].setPtr((vehicles.back()));
     else
         sections[0].setPtr(nullptr);
 
@@ -68,7 +81,6 @@ void Lane::carArrival(Direction dir, bool hit, VehicleBase* arrival)
 //method 
 void Lane::carArrival(VehicleBase* veh){
     sections[0].setPtr(veh);
-    
 }
 
 //method that returns all the vehicles in one lane
@@ -96,20 +108,17 @@ void Lane::advance()
         sections[i].setPtr(sections[i-1].getPtr());
     }
 
-    if (buffer > 0){
-        buffer--;
-    }
+    sections[0].setPtr(nullptr);
 }
 
 
 //method with logic to advance cars that are not touching the intersection to move ahead during red and yellow lights
-void Lane::advanceRed() // with more cars, advance only up to stop point
-{ 
+void Lane::advanceRed(){ // with more cars, advance only up to stop point
     if (!sections[(int)sections.size() - 1].getOccupied())
         advance();
     else{
 
-        int i = 0;
+        /*int i = 0;
 
         while (i < (int)sections.size() - 4){ //largest vehicle is truck 
             int j = i + 1;
@@ -140,8 +149,25 @@ void Lane::advanceRed() // with more cars, advance only up to stop point
             }
             else 
                 break;
+        }*/
+
+        int i = (int)sections.size() - 1;
+
+        while (i > 0 && sections[i].getOccupied()){
+            i--;
         }
 
+        if (i == 0)
+            return;
+
+        for (int j = i; j > 0; j--){
+            sections[j].setPtr(sections[j-1].getPtr());
+            
+          //  if (buffer > 0)
+          //     buffer--;
+        }
+
+        sections[0].setPtr(nullptr);
     }
 }
 
@@ -179,9 +205,16 @@ void Lane::clear(){
    for (vector<VehicleBase*>::iterator it = vehicles.begin(); it != vehicles.end();){
        delete *it;  
        it = vehicles.erase(it);
-
-       cout << "here" << endl;
    }
+}
+
+
+bool Lane::isFull(){
+    for (int i = 0; i < (int)sections.size(); i++)
+        if (!sections[i].getOccupied())
+            return false;
+
+    return true;
 }
 
 #endif

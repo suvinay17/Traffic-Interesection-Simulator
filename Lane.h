@@ -41,6 +41,7 @@ class Lane
 		
         	void setContinuedArrivee(VehicleBase* veh);
 
+
             void clear();
     
         //private members
@@ -58,6 +59,7 @@ class Lane
         	bool continuedArrival = false;
         	VehicleBase* continuedArrivee;
 
+            bool isFull();
 };
 #endif
 		

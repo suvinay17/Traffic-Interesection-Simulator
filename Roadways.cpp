@@ -233,8 +233,9 @@ void Roadways::advance(int t){
         cout << k << ": " << myIntersection.getLastSection()[k] << endl;*/
         int left = 0;
         int index = (int)inputParameters[1] - 1;
-        while (index > 1 && myLanes[j].getVehicles()[index] != nullptr && (myLanes[j].getVehicles()[index] == myLanes[j].getVehicles()[index - 1] || 
-                myLanes[j].getVehicles()[(int)inputParameters[1] - 2] == nullptr)){
+
+        VehicleBase* stopped = myLanes[j].getVehicles()[index]; 
+        while (index > 0 && myLanes[j].getVehicles()[index] != nullptr && myLanes[j].getVehicles()[index] == stopped){
             left++;
             index--;
         }
@@ -245,14 +246,14 @@ void Roadways::advance(int t){
 
         // advance into intersection
         if (myLanes[j].beforeIntersection() && lights[j/4].getStatus() == LightColor::green &&
-                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() >= left )){
+                (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left + 2 )){
             myIntersection.arrival(myLanes[j].getVehicles().back(), k);
         }
 
         // advance preceding lane
         if (lights[j/4].getStatus() == LightColor::green){
             if (myLanes[j].getVehicles()[inputParameters[1] - 1] != nullptr &&
-                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() >= left ))
+                    (lights[j/4].getCurrentTime() > myLanes[j].getVehicles()[inputParameters[1] - 1]->getVehicleSize() + 2 || lights[j/4].getCurrentTime() > left +2  ))
                 myLanes[j].advance();
             else
                 myLanes[j].advanceRed();
